@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section id="banner" class="banner-section">
+  <div class="container">
+    <div class="div_zindex">
+      <div class="row">
+        <div class="col-md-5 col-md-push-7">
+          <div class="banner_content">
+            <h1>&nbsp;</h1>
+            <p>&nbsp; </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-padding gray-bg">
+  <div class="container">
+    <div class="section-header text-center">
+      <h2>Find the Best <span>CarForYou</span></h2>
+    </div>
+    <div class="row"> 
+      <div class="recent-tab">
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active"><a href="#resentnewcar" role="tab" data-toggle="tab">New Car</a></li>
+        </ul>
+      </div>
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="resentnewcar">
+          {% for vhid, vehicle in vehicles.items() %}
+          <div class="col-list-3">
+            <div class="recent-car-list">
+              <div class="car-info-box" style="cursor: pointer;" data-toggle="collapse" data-target="#pros-{{ vhid }}"> 
+                <img src="{{ url_for('static', filename='admin/img/vehicleimages/' + vehicle.Vimage1) }}" class="img-responsive" alt="image">
+                <ul>
+                  <li><i class="fa fa-car" aria-hidden="true"></i>{{ vehicle.FuelType }}</li>
+                  <li><i class="fa fa-calendar" aria-hidden="true"></i>{{ vehicle.ModelYear }} Model</li>
+                  <li><i class="fa fa-user" aria-hidden="true"></i>{{ vehicle.SeatingCapacity }} seats</li>
+                </ul>
+              </div>
+              <div class="car-title-m">
+                <h6><a href="javascript:void(0);" data-toggle="collapse" data-target="#pros-{{ vhid }}">{{ vehicle.VehiclesTitle }}</a></h6>
+                <span class="price">₹{{ vehicle.PricePerDay }} /Day</span> 
+              </div>
+              <div class="inventory_info_m">
+                <p>{{ vehicle.VehiclesOverview[:70] }}...</p>
+                <div id="pros-{{ vhid }}" class="collapse" style="margin-top: 15px; padding: 10px; background: rgba(250, 40, 55, 0.05); border-left: 3px solid #fa2837; border-radius: 4px;">
+                  <h6 style="color: #fa2837; margin-bottom: 8px;"><i class="fa fa-star"></i> Top Pros</h6>
+                  <ul style="list-style: none; padding-left: 0; margin-bottom: 0;">
+                    {% if vehicle.AirConditioner == 1 %}<li><i class="fa fa-check-circle" style="color: #28a745;"></i> Air Conditioning</li>{% endif %}
+                    {% if vehicle.PowerDoorLocks == 1 %}<li><i class="fa fa-check-circle" style="color: #28a745;"></i> Power Door Locks</li>{% endif %}
+                    {% if vehicle.AntiLockBrakingSystem == 1 %}<li><i class="fa fa-check-circle" style="color: #28a745;"></i> Anti-Lock Braking (ABS)</li>{% endif %}
+                    {% if vehicle.AirConditioner != 1 and vehicle.PowerDoorLocks != 1 and vehicle.AntiLockBrakingSystem != 1 %}
+                    <li><i class="fa fa-check-circle" style="color: #28a745;"></i> Economical & Highly Reliable</li>
+                    {% endif %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
